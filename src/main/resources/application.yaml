@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: books
+  datasource:
+    url: jdbc:postgresql://localhost:5432/book?serverTimeZone=ADT
+    username: postgres
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+spring-doc:
+  api-docs:
+    path: /api-docs
+    pathsToMatch: /api/**
+    swagger-ui:
+      use-root-path: true
