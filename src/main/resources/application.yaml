@@ -4,7 +4,7 @@ spring:
   application:
     name: books
   datasource:
-    url: jdbc:postgresql://localhost:5432/book?serverTimeZone=ADT
+    url: jdbc:postgresql://localhost:5432/bdbook?serverTimeZone=ADT
     username: postgres
     password: 123456
   jpa:

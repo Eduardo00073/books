@@ -52,8 +52,6 @@ public class BooksController {
     ) {
         Pageable pageable = PageRequest.of(page, size);
         Page<BooksDto> books = service.findByName(name, pageable);
-
-        // Convertendo Page<BooksDto> para PagedModel<EntityModel<BooksDto>> usando o assembler
         PagedModel<EntityModel<BooksDto>> pagedModel = assembler.toModel(books);
         return new ResponseEntity<>(pagedModel, HttpStatus.OK);
     }
@@ -87,20 +85,17 @@ public class BooksController {
     }
 
     private void createLinks(BooksDto dto) {
-        // Link para o próprio recurso (self)
         dto.add(
                 WebMvcLinkBuilder.linkTo(
                         WebMvcLinkBuilder.methodOn(this.getClass()).findById(dto.getId())
                 ).withSelfRel()
         );
-        // Link para deletar o recurso
         dto.add(
                 WebMvcLinkBuilder.linkTo(
                         WebMvcLinkBuilder.methodOn(this.getClass()).delete(dto.getId())
                 ).withRel("delete")
         );
 
-        // Link para a categoria do livro, se existir
         if (dto.getCategoryId() != null && dto.getCategoryId() > 0) {
             dto.add(
                     WebMvcLinkBuilder.linkTo(
@@ -111,7 +106,6 @@ public class BooksController {
     }
 
     private void createCollectionLink(CollectionModel<EntityModel<BooksDto>> books) {
-        // Link para a coleção de recursos (todos os livros)
         books.add(
                 WebMvcLinkBuilder.linkTo(
                         WebMvcLinkBuilder.methodOn(this.getClass()).findAll()
